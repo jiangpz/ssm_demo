@@ -497,3 +497,9 @@ Caused by: org.springframework.beans.factory.NoSuchBeanDefinitionException: No q
 [INFO] [2015-12-15 18:50:41][org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor]JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
 [INFO] [2015-12-15 18:50:42][org.totoro.testssm.TestMyBatis]{"age":24,"id":1,"password":"sfasgfaf","userName":"≤‚ ‘"}
 [INFO] [2015-12-15 18:50:42][org.springframework.context.support.GenericApplicationContext]Closing org.springframework.context.support.GenericApplicationContext@c273d3: startup date [Tue Dec 15 18:50:41 CST 2015]; root of context hierarchy
+[INFO] [2015-12-16 10:58:56][org.springframework.beans.factory.xml.XmlBeanDefinitionReader]Loading XML bean definitions from class path resource [spring-mybatis.xml]
+[INFO] [2015-12-16 10:58:56][org.springframework.context.support.GenericApplicationContext]Refreshing org.springframework.context.support.GenericApplicationContext@1057a39: startup date [Wed Dec 16 10:58:56 CST 2015]; root of context hierarchy
+[INFO] [2015-12-16 10:58:56][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer]Loading properties file from class path resource [jdbc.properties]
+[INFO] [2015-12-16 10:58:56][org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor]JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+[INFO] [2015-12-16 10:58:57][org.totoro.testssm.TestMyBatis]{"age":24,"id":1,"password":"sfasgfaf","userName":"≤‚ ‘"}
+[INFO] [2015-12-16 10:58:57][org.springframework.context.support.GenericApplicationContext]Closing org.springframework.context.support.GenericApplicationContext@1057a39: startup date [Wed Dec 16 10:58:56 CST 2015]; root of context hierarchy
