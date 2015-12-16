@@ -11,7 +11,7 @@
 	
 	<properties>
         <!-- spring版本号 -->
-        <spring.version>4.0.2.RELEASE</spring.version>
+        <spring.version>4.2.0.RELEASE</spring.version>
         <!-- mybatis版本号 -->
         <mybatis.version>3.3.0</mybatis.version>
         <!-- log4j日志文件管理包版本 -->
@@ -166,6 +166,21 @@
             <artifactId>commons-codec</artifactId>
             <version>1.9</version>
         </dependency>
+        <dependency>
+	        <groupId>com.fasterxml.jackson.core</groupId>
+	        <artifactId>jackson-core</artifactId>
+	        <version>2.6.3</version>
+	    </dependency>
+	    <dependency>
+	        <groupId>com.fasterxml.jackson.core</groupId>
+	        <artifactId>jackson-databind</artifactId>
+	        <version>2.6.3</version>
+	    </dependency>
+	    <dependency>
+	        <groupId>com.fasterxml.jackson.core</groupId>
+	        <artifactId>jackson-annotations</artifactId>
+	        <version>2.6.3</version>
+	    </dependency>
 	</dependencies>
 	
 	<build>
