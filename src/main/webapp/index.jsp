@@ -1,3 +1,4 @@
+<%@ page contentType="text/html; charset=UTF-8"%>
 <!DOCTYPE html>
 <%
 	String ctx = request.getContextPath();
@@ -28,6 +29,32 @@
   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
+  
+  <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=I7OhdHGWj6Br2zahmpigm32F"></script>
+  
+  <script type="text/javascript">
+  
+/* 	// 百度地图API功能
+	var map = new BMap.Map("l-map");    // 创建Map实例
+	map.centerAndZoom(new BMap.Point(116.404, 39.915), 11);  // 初始化地图,设置中心点坐标和地图级别
+	map.addControl(new BMap.MapTypeControl());   //添加地图类型控件
+	map.setCurrentCity("北京");          // 设置地图显示的城市 此项是必须设置的
+	map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放 */
+	
+	
+/*    	var map = new BMap.Map("l-map");
+	var busStationIcon = new BMap.Icon("busstation_marker.png", new BMap.Size(10,10));
+	var busStationHover = new BMap.Icon("busstation_marker_hover.png", new BMap.Size(10,10));
+	var infoWindow = new BMap.InfoWindow("");
+	var currentLocation;
+	
+	map.centerAndZoom(new BMap.Point(116.404, 39.915), 15);
+	map.enableScrollWheelZoom();
+	
+	var activePolyline;            // hover bus line
+	var stationList = Array();        // hover bus line stations
+	var currentPolyline;            // hovered origin line  */
+  </script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <!-- Site wrapper -->
@@ -378,7 +405,7 @@
       <!-- Default box -->
       <div class="box">
         <div class="box-header with-border">
-          <h3 class="box-title">Title</h3>
+          <h3 class="box-title">显示从某站点出发的所有公交车路线</h3>
 
           <div class="box-tools pull-right">
             <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
@@ -388,11 +415,20 @@
           </div>
         </div>
         <div class="box-body">
-          Start creating your amazing application!
-          ------
-          ${cxt}
-          ------
-          ${ctx}
+          <div class="row">
+          	<div class="col-xs-3">
+          	    <div id="r-query">
+                                       请输入公交站名，如：“西单”：<br/>
+                <input type="text" id="keyword" value="西单"/><br/>
+                                      请输入城市名，如北京（仅作参考，如搜索泉城广场时，北京没有这个地址，一样会找到济南，但如果北京也有，就不会找济南了）：<br/>
+                <input type="text" id="location" value="北京"/><button id="query">查询</button>
+              </div>
+              <div id="l-result">
+              </div>
+          	</div>
+          	<div id="l-map" class="col-xs-9" style="height: 800px;">
+          	</div>
+          </div>
         </div>
         <!-- /.box-body -->
         <div class="box-footer">
@@ -626,3 +662,61 @@
 <script src="${ctx}/static/dist/js/demo.js"></script>
 </body>
 </html>
+<script type="text/javascript">
+/* 	// 百度地图API功能
+	var map = new BMap.Map("l-map");    // 创建Map实例
+	map.centerAndZoom(new BMap.Point(116.404, 39.915), 11);  // 初始化地图,设置中心点坐标和地图级别
+	map.addControl(new BMap.MapTypeControl());   //添加地图类型控件
+	map.setCurrentCity("北京");          // 设置地图显示的城市 此项是必须设置的
+	map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放 */
+	
+	var map = new BMap.Map("l-map");
+	var busStationIcon = new BMap.Icon("busstation_marker.png", new BMap.Size(10,10));
+	var busStationHover = new BMap.Icon("busstation_marker_hover.png", new BMap.Size(10,10));
+	var infoWindow = new BMap.InfoWindow("");
+	var currentLocation;
+	
+	map.centerAndZoom(new BMap.Point(116.404, 39.915), 15);
+	map.enableScrollWheelZoom();
+	
+	var activePolyline;            // hover bus line
+	var stationList = Array();        // hover bus line stations
+	var currentPolyline;            // hovered origin line
+	
+	document.getElementById('query').onclick=function(){
+	    map.clearOverlays();
+	    console.log(document.getElementById('location').value);
+	    document.getElementById("l-result").innerHTML = "";
+	    new BMap.LocalSearch(document.getElementById('location').value, {
+	        onSearchComplete: searchComplete
+	    }).search(document.getElementById('keyword').value);
+	};
+	
+	function searchComplete(result) {
+		alert(result);
+	    var resultPanel = document.getElementById("l-result");
+	    for (var i = 0 ; i < result.getCurrentNumPois() ; i++) {
+	        var poi = result.getPoi(i);
+	        if (poi.type == BMAP_POI_TYPE_NORMAL) {
+	            continue;
+	        }
+	        var link = document.createElement('a'); 
+	        link.setAttribute('href', 'javascript:void(0)');
+	        link.poi = poi;
+	        link.onclick=function(){
+	            map.clearOverlays();
+	            currentLocation = this.poi.province;
+	            var marker = new BMap.Marker(this.poi.point);
+	            map.addOverlay(marker);
+	            map.panTo(this.poi.point);
+	            var busNames = this.poi.address.split(';');
+	            for (i = 0 ; i < busNames.length ; i++) {
+	                busutil.getBusList(busNames[i]);
+	            }
+	        };
+	        link.innerText = poi.title + " (" + poi.province + "): " + poi.tags + " : " + poi.address;
+	        resultPanel.appendChild(link);
+	        resultPanel.appendChild(document.createElement('br'));
+	    }
+	}
+</script>
